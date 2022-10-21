@@ -1,4 +1,23 @@
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
 .gallery{
-display: flex;
+
+    position: relative;
+/* display: flex;
 flex-wrap: wrap;
+margin-top: 60px; */
+
+}
+.photocard:nth-last-child(n){
+    margin-right: 10px;
+}
+.info{
+    display: flex;
+    flex-wrap: wrap;
+}
+.info-item:not(:last-child){
+margin-right: 5px;
 }

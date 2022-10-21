@@ -1,8 +1,12 @@
+.invisible{
+    display: none;
+}
+
 .search-form{
-    display: flex;
-    justify-content: center;
+  
+   
     height: 50px;
-    width: auto;
+    width:auto;
     background-color: rgb(245, 195, 195);
 }
 
@@ -16,9 +20,14 @@
     border: 1px;
    
 }
-
-.input{
+.conteiner-input{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     
+}
+.input{
+ 
     margin-top: 15px;
 height: 20px;
 width: 300px;
@@ -27,4 +36,9 @@ width: 300px;
     width: 200px;
     height: 500px;
     border:2px rgb(30, 26, 26);
+}
+.load-more{
+    width: 50px;
+    height: 40px;
+   
 }
