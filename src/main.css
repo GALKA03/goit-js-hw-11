@@ -1,0 +1,30 @@
+.search-form{
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    width: auto;
+    background-color: rgb(245, 195, 195);
+}
+
+
+.button{
+    margin-top: 15px;
+    color: aliceblue;
+    background-color: brown;
+    width: 40px;
+    height: 25px;
+    border: 1px;
+   
+}
+
+.input{
+    
+    margin-top: 15px;
+height: 20px;
+width: 300px;
+}
+.photocard{
+    width: 200px;
+    height: 500px;
+    border:2px rgb(30, 26, 26);
+}
