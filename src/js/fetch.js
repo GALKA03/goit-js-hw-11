@@ -1,4 +1,6 @@
-export function fetchEvent( query, page, perPage) {
+export {fetchEvent}
+
+    function fetchEvent(query, page, perPage) {
     console.log('query', query)
     console.log('page', page)
      console.log('perpage',perPage)

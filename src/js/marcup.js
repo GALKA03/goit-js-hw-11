@@ -1,4 +1,5 @@
-export function renderEventsPhoto(events) {
+export {renderEventsPhoto}
+    function renderEventsPhoto(events) {
     const marcup = events
         .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
             return  `
