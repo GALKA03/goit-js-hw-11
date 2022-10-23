@@ -5,7 +5,7 @@ import SimpleLightbox from 'simplelightbox'
 import 'simplelightbox/dist/simple-lightbox.min.css'
 //import throttle from 'lodash.throttle';
 
-refs = {
+const refs = {
     form: document.querySelector('form'),
     //button: document.querySelector('button'),
     galleryConteiner: document.querySelector('.gallery'),
@@ -13,13 +13,6 @@ refs = {
     btnLoadMore: document.querySelector('.load-more')
    
 }
-// let lightbox = new SimpleLightbox('.photo-card a', {
-//   captions: true,
-//   captionsData: 'alt',
-//   captionDelay: 250,
-// });
-
-console.log(refs.btnLoadMore)
 let simpleLightBox;
 //let query = '';
 let page = 1;
@@ -74,7 +67,7 @@ function getFetch( page,query,perPage){
  simpleLightBox = new SimpleLightbox('.gallery a').refresh()
            
 console.log('allpage', allPages)
-            if ( page > allPages) {
+            if ( keyWord > allPages) {
                 refs.btnLoadMore.classList.add('invisible')
                 Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.")
             }
