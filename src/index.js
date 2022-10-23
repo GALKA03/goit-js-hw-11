@@ -5,6 +5,48 @@ import SimpleLightbox from 'simplelightbox'
 import 'simplelightbox/dist/simple-lightbox.min.css'
 //import throttle from 'lodash.throttle';
 
+function renderEventsPhoto(events) {
+    const marcup = events
+        .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
+            return  `
+ <div class="photocard">
+
+ <a class="gallery__link" href="${largeImageURL}">
+       <img src ="${webformatURL}" alt="${tags}" loading="lazy"  /></a>
+       <div class="info">
+           <p class="info-item">
+           <b>likes:${likes}</b>
+           </p>
+           <p class="info-item">
+               <b>views:${views}</b>
+           </p>
+<p class="info-item">
+               <b>comments:${comments}</b>
+           </p>
+           <p class="info-item">
+               <b>downloads:${downloads}</b>
+           </p>
+       </div>
+</div>    ` 
+    }).join('')
+    refs.galleryConteiner.innerHTML = marcup;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const refs = {
     form: document.querySelector('form'),
     //button: document.querySelector('button'),
@@ -28,7 +70,7 @@ refs.btnLoadMore.addEventListener('click', () => {
 function onSubmitForm(e){
     e.preventDefault()     
     const query = e.target.searchQuery.value.trim()
-    refs.galleryConteiner.innerHTML = '';
+   // refs.galleryConteiner.innerHTML = '';
    // refs.btnLoadMore.classList.add('invisible')
     keyWord = query;
      console.log(keyWord)
