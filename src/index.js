@@ -5,6 +5,13 @@ import SimpleLightbox from 'simplelightbox'
 import 'simplelightbox/dist/simple-lightbox.min.css'
 //import throttle from 'lodash.throttle';
 
+   const form = document.querySelector('form')
+    //button: document.querySelector('button'),
+    const galleryConteiner = document.querySelector('.gallery')
+   const galleryLink = document.querySelector('.gallery__link')
+   const btnLoadMore = document.querySelector('.load-more')
+   
+
 function renderEventsPhoto(events) {
     const marcup = events
         .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
@@ -29,41 +36,20 @@ function renderEventsPhoto(events) {
        </div>
 </div>    ` 
     }).join('')
-    refs.galleryConteiner.innerHTML = marcup;
+    galleryConteiner.innerHTML = marcup;
 }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-const refs = {
-    form: document.querySelector('form'),
-    //button: document.querySelector('button'),
-    galleryConteiner: document.querySelector('.gallery'),
-    galleryLink: document.querySelector('.gallery__link'),
-    btnLoadMore: document.querySelector('.load-more')
-   
-}
 let simpleLightBox;
 //let query = '';
 let page = 1;
 let perPage = 40;
 let keyWord = '';
 
-refs.form.addEventListener('submit', onSubmitForm)
+form.addEventListener('submit', onSubmitForm)
 
-refs.btnLoadMore.addEventListener('click', () => {
+btnLoadMore.addEventListener('click', () => {
     getFetch(page, keyWord, perPage)
 });
 
@@ -110,7 +96,7 @@ function getFetch( page,query,perPage){
            
 console.log('allpage', allPages)
             if ( keyWord > allPages) {
-                refs.btnLoadMore.classList.add('invisible')
+                btnLoadMore.classList.add('invisible')
                 Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.")
             }
             // if (page === totalPages) {
