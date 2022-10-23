@@ -1,5 +1,5 @@
-import { fetchEvent } from './js/fetch'
-import { renderEventsPhoto } from './js/marcup'
+import { fetchEvent } from './js/fetch';
+import { renderEventsPhoto } from './js/marcup';
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox'
 import 'simplelightbox/dist/simple-lightbox.min.css'
