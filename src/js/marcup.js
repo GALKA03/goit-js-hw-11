@@ -23,5 +23,5 @@ export {renderEventsPhoto}
        </div>
 </div>    ` 
     }).join('')
-    refs.galleryConteiner.innerHTML = marcup;
+galleryConteiner.innerHTML = marcup;
 }
