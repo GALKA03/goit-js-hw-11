@@ -13,28 +13,33 @@ const btnLoadMore = document.querySelector('.load-more')
    form.addEventListener('submit',onFormSubmit)
 btnLoadMore.addEventListener('click', () => {
    getFetch(page, query)
+   
 })
 let perPage = 40;
 let page = 1;
 let query = '';
+ 
 
 function getFetch(page, query) {
    fetchEvent(page, query)
       .then(data => {
-
+page += 1
          console.log('data', data)
          const events = data.hits
-         const totalPages = Math.ceil(data.totalHits / perPage)
-         console.log('totalPages',totalPages)
+      
          console.log('events', events)
-         if (totalPages === 0) {
+         if (events === 0) {
             Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.')
          } else {
             renderEventsPhoto(events)
             Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`)
-            page += 1
+               const totalPages = Math.ceil(data.totalHits / perPage)
+            console.log('totalPages', totalPages)
+            if (page > totalPages) {
+        Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.")
+      }
          }
-
+ 
       },
      
    )
@@ -43,8 +48,10 @@ function getFetch(page, query) {
 function onFormSubmit(e) {
 
    e.preventDefault()
+   
    page = 1;
    const query = e.target.searchQuery.value.trim()
+
    console.log('query', query)
    gallery.innerHTML = '';
    if (query === '') {  
