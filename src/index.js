@@ -1,18 +1,59 @@
-import { fetchEvent } from './js/fetch';
+import {fetchEvent} from './js/fetch';
 import { renderEventsPhoto } from './js/marcup';
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox'
 import 'simplelightbox/dist/simple-lightbox.min.css'
 //import throttle from 'lodash.throttle';
 
+const gallery = document.querySelector('.gallery')
    const form = document.querySelector('form')
     //button: document.querySelector('button'),
-    const galleryConteiner = document.querySelector('.gallery')
    const galleryLink = document.querySelector('.gallery__link')
-   const btnLoadMore = document.querySelector('.load-more')
-   
+const btnLoadMore = document.querySelector('.load-more')
+   form.addEventListener('submit',onFormSubmit)
+btnLoadMore.addEventListener('click', () => {
+   getFetch(page, query)
+})
+let perPage = 40;
+let page = 1;
+let query = '';
 
+function getFetch(page, query) {
+   fetchEvent(page, query)
+      .then(data => {
 
+         console.log('data', data)
+         const events = data.hits
+         const totalPages = Math.ceil(data.totalHits / perPage)
+         console.log('totalPages',totalPages)
+         console.log('events', events)
+         if (totalPages === 0) {
+            Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.')
+         } else {
+            renderEventsPhoto(events)
+            Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`)
+            page += 1
+         }
+
+      },
+     
+   )
+   .catch(error => console.log(error))
+}
+function onFormSubmit(e) {
+
+   e.preventDefault()
+   page = 1;
+   const query = e.target.searchQuery.value.trim()
+   console.log('query', query)
+   gallery.innerHTML = '';
+   if (query === '') {  
+
+    Notiflix.Notify.info('Sorry, there are no imgs matchin your search qery. Plese try again.');
+      return 
+           }
+getFetch(page, query)
+}
 
 
 
