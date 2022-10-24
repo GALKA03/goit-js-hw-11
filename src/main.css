@@ -1,4 +1,4 @@
-.invisible{
+.invis{
     display: none;
 }
 
@@ -35,8 +35,8 @@ right: -17px;
     */
 }
 
-.button.icon:before {
-    content: "\f002";
+.button:before {
+    content: icon;
     font-family: FontAwesome;
     font-size: 20px;
     color: #F9F0DA;
@@ -59,11 +59,15 @@ width: 100%;
 
 }
 .icon{
+    
     position: absolute;
     top: 10px;
     right: -7px;
+    z-index: 1;
 }
-
+.mybutton{
+    cursor: pointer;
+}
 
 
 /* .input{

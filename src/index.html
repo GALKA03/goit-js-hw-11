@@ -12,19 +12,21 @@
   </head>
   <body>
 <form class="search-form" id="search-form">
-  
-  <input class = "input" type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
-  <button class="button" type="submit"></button>
-<svg class="icon" width="30" height="30">
+  <label for="mybutton">
+    <svg id = "1" class="icon" width="30" height="30">
   <use class="svg" href="./images/search.svg#Capa_1"></use>
 </svg>
+  </label>
+  <input class = "input" type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
+  <button class="button" type="submit"></button>
+
   </form>
 <div class="gallery">
 
 </div>
 
 
-<button type="button" class="load-more invisible">Load more</button>
+<button type="button" class="load-more invis">Load more</button>
 <script type="module" src="./index.js"></script>
   </body>
 </html>

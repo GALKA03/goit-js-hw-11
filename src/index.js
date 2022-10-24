@@ -18,12 +18,13 @@ btnLoadMore.addEventListener('click', () => {
 let perPage = 40;
 let page = 1;
 let query = '';
- 
+ let simpleLightBox;
 
 function getFetch(page, query) {
    fetchEvent(page, query)
       .then(data => {
-page += 1
+        
+      
          console.log('data', data)
          const events = data.hits
       
@@ -32,6 +33,8 @@ page += 1
             Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.')
          } else {
             renderEventsPhoto(events)
+ page += 1
+simpleLightBox = new SimpleLightbox('.gallery a').refresh()
             Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`)
                const totalPages = Math.ceil(data.totalHits / perPage)
             console.log('totalPages', totalPages)
@@ -46,16 +49,14 @@ page += 1
    .catch(error => console.log(error))
 }
 function onFormSubmit(e) {
-
-   e.preventDefault()
-   
+e.preventDefault()
+   btnLoadMore.classList.remove('invis')
    page = 1;
    const query = e.target.searchQuery.value.trim()
 
    console.log('query', query)
    gallery.innerHTML = '';
    if (query === '') {  
-
     Notiflix.Notify.info('Sorry, there are no imgs matchin your search qery. Plese try again.');
       return 
            }

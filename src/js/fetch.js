@@ -1,3 +1,4 @@
+import axios from 'axios';
 export function fetchEvent(page, query) {
  const URL = 'https://pixabay.com/api/';
     const API = "30706711-d5d2ff18b6ad5954982c3eaa0";
@@ -5,13 +6,8 @@ export function fetchEvent(page, query) {
 
      console.log('page', page)
 
-        return fetch(`${URL}?key=${API}${BASE}`)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(response.status);
-                }
-                return response.json();
-            })
+    return axios.get(`${URL}?key=${API}${BASE}`)
+        .then(response => response.data)
             .catch((error) => console.log(error));
     }
 
