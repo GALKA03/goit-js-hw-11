@@ -2,10 +2,11 @@ export { renderEventsPhoto }
 
 const gallery = document.querySelector('.gallery')
 
-    function renderEventsPhoto(events) {
-    const marcup = events
-        .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
-            return  `
+function renderEventsPhoto(events) {
+    const markup = events
+        .map(event => {
+            const { webformatURL, largeImageURL, tags, likes, views, comments, downloads } = event
+            return `
  <div class="photocard">
 
  <a class="gallery__link" href="${largeImageURL}">
@@ -24,7 +25,7 @@ const gallery = document.querySelector('.gallery')
                <b>downloads:${downloads}</b>
            </p>
        </div>
-</div>    ` 
-    }).join('')
-gallery.innerHTML = marcup;
+</div>    `
+        }).join('')
+    gallery.insertAdjacentHTML('beforeend', markup);
 }
