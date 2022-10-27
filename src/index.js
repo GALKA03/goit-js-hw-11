@@ -42,6 +42,10 @@ async function onFormSubmit(e) {
          }
          else {
             renderEventsPhoto(data.hits)
+            simpleLightBox = new SimpleLightbox('.gallery a').refresh()
+            Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`)
+           
+            btnLoadMore.classList.remove('invis')
             const { height: cardHeight } = document
         .querySelector('.gallery')
         .firstElementChild.getBoundingClientRect();
@@ -51,45 +55,43 @@ async function onFormSubmit(e) {
         behavior: 'smooth',
       });
             } 
-simpleLightBox = new SimpleLightbox('.gallery a').refresh()
-            Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`)
-           
-            btnLoadMore.classList.remove('invis')
-      },
-     
-   )
-   .catch(error => console.log(error))
-}
-  
-function onBtnLoadMore() {
-    page += 1;
-   fetchEvent(keyWord, page, perPage)
-      .then(({ data }) => {
-         renderEventsPhoto(data.hits)
-         
-simpleLightBox = new SimpleLightbox('.gallery a').refresh()
-
-          const { height: cardHeight } = document
-        .querySelector('.gallery')
-      .firstElementChild.getBoundingClientRect();
- 
- console.log(document
-  .querySelector(".gallery")
-  .firstElementChild.getBoundingClientRect())
-   window.scrollBy({
-      top: cardHeight * 2,
-        behavior: 'smooth',
-      });   
 const totalPages = Math.ceil(data.totalHits / perPage)
  if (totalPages < page) {
             btnLoadMore.classList.add('invis')
             Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.")
           
         }
-      })
+      }
+      
      
-      .catch(error => console.log(error)) 
+   )
+   .catch(error => console.log(error))
 }
+  
+function onBtnLoadMore() {
+   page += 1;
+
+   fetchEvent(keyWord, page, perPage)
+      .then(({ data }) => {
+         renderEventsPhoto(data.hits)
+         
+         simpleLightBox = new SimpleLightbox('.gallery a').refresh()
+
+         const { height: cardHeight } = document
+            .querySelector('.gallery')
+            .firstElementChild.getBoundingClientRect();
+ 
+         console.log(document
+            .querySelector(".gallery")
+            .firstElementChild.getBoundingClientRect())
+         window.scrollBy({
+            top: cardHeight * 2,
+            behavior: 'smooth',
+         })
+      })
+            .catch(error => console.log(error))
+      
+   }
 // window.addEventListener('scroll', onScrollAuto)
 // function onScrollAuto() {
 //    const documentAll = document.documentElement.getBoundingClientRect()
