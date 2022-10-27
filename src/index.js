@@ -68,14 +68,14 @@ function onBtnLoadMore() {
           lightbox.refresh()
       //new SimpleLightbox('.gallery a').refresh()
 const totalPages = Math.ceil(data.totalHits / perPage)
-         // const { height: cardHeight } = document
-         //    .querySelector('.gallery')
-         //    .firstElementChild.getBoundingClientRect();
+         const { height: cardHeight } = document
+            .querySelector('.gallery')
+            .firstElementChild.getBoundingClientRect();
 
-         // window.scrollBy({
-         //    top: cardHeight * 2,
-         //    behavior: 'smooth',
-         // })   
+         window.scrollBy({
+            top: cardHeight * 2,
+            behavior: 'smooth',
+         })   
  if (totalPages < page) {
             btnLoadMore.classList.add('invis')
             Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.")
