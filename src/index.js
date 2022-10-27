@@ -43,24 +43,10 @@ async function onFormSubmit(e) {
          else {
             renderEventsPhoto(data.hits)
             simpleLightBox = new SimpleLightbox('.gallery a').refresh()
+             btnLoadMore.classList.remove('invis')
             Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`)
-           
-            btnLoadMore.classList.remove('invis')
-            const { height: cardHeight } = document
-        .querySelector('.gallery')
-        .firstElementChild.getBoundingClientRect();
-   
-      window.scrollBy({
-        top: cardHeight *2,
-        behavior: 'smooth',
-      });
             } 
-const totalPages = Math.ceil(data.totalHits / perPage)
- if (totalPages < page) {
-            btnLoadMore.classList.add('invis')
-            Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.")
-          
-        }
+
       }
       
      
@@ -88,6 +74,12 @@ function onBtnLoadMore() {
             top: cardHeight * 2,
             behavior: 'smooth',
          })
+         const totalPages = Math.ceil(data.totalHits / perPage)
+ if (totalPages < page) {
+            btnLoadMore.classList.add('invis')
+            Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.")
+          
+        }
       })
             .catch(error => console.log(error))
       
