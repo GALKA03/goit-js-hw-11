@@ -33,7 +33,7 @@ async function onFormSubmit(e) {
    
    fetchEvent(query, page, perPage) 
       .then(({ data }) => {
-         const totalPages = Math.ceil(data.totalHits / perPage)
+       //const totalPages = Math.ceil(data.totalHits / perPage)
          console.log(data)
          
          if (data.totalHits === 0) {
@@ -61,15 +61,13 @@ simpleLightBox = new SimpleLightbox('.gallery a').refresh()
    .catch(error => console.log(error))
 }
   
-function onBtnLoadMore(){
-   page += 1;
-        
+function onBtnLoadMore() {
+    page += 1;
    fetchEvent(keyWord, page, perPage)
       .then(({ data }) => {
-   
          renderEventsPhoto(data.hits)
+         
 simpleLightBox = new SimpleLightbox('.gallery a').refresh()
-
 
           const { height: cardHeight } = document
         .querySelector('.gallery')
@@ -81,9 +79,7 @@ simpleLightBox = new SimpleLightbox('.gallery a').refresh()
    window.scrollBy({
       top: cardHeight * 2,
         behavior: 'smooth',
-      }); 
-         
-       
+      });   
 const totalPages = Math.ceil(data.totalHits / perPage)
  if (totalPages < page) {
             btnLoadMore.classList.add('invis')
