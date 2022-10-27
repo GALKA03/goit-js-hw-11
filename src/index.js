@@ -7,44 +7,54 @@ import 'simplelightbox/dist/simple-lightbox.min.css'
 
 const gallery = document.querySelector('.gallery')
    const form = document.querySelector('form')
-    //button: document.querySelector('button'),
-   const galleryLink = document.querySelector('.gallery__link')
 const btnLoadMore = document.querySelector('.load-more')
    form.addEventListener('submit',onFormSubmit)
 btnLoadMore.addEventListener('click', onBtnLoadMore)
+//window.addEventListener('scroll', onScroll)
 
 let perPage = 40;
 let page = 1;
-let query = '';
+let keyWord = '';
 
 
 
 async function onFormSubmit(e) {
-e.preventDefault()
-   btnLoadMore.classList.add('invis')
+   e.preventDefault()
+   
    page = 1;
    gallery.innerHTML = '';
    const query = e.target.searchQuery.value.trim()
-if (query === '') {  
-    Notiflix.Notify.info('Sorry, there are no imgs matchin your search qery. Plese try again.');
+   keyWord = query
+   if (query === '') {
+    btnLoadMore.classList.add('invis')
+     Notiflix.Notify.failure('The search string cannot be empty. Please specify your search query.')
       return 
    }
    
    fetchEvent(query, page, perPage) 
-      .then(({ data })=> {
-         //const events = data.hits
-         // if (events === 0) 
-         if(data.totalHits === 0){
+      .then(({ data }) => {
+         const totalPages = Math.ceil(data.totalHits / perPage)
+         console.log(data)
+         
+         if (data.totalHits === 0) {
+            console.log(data.totalHits)
             Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.')
-         } else {
-            renderEventsPhoto(data.hits)//events
+         }
+         else {
+            renderEventsPhoto(data.hits)
+            const { height: cardHeight } = document
+        .querySelector('.gallery')
+        .firstElementChild.getBoundingClientRect();
+   
+      window.scrollBy({
+        top: cardHeight *2,
+        behavior: 'smooth',
+      });
+            } 
 simpleLightBox = new SimpleLightbox('.gallery a').refresh()
             Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`)
-          
-         }
-         if (data.totalHits > perPage) {
-          btnLoadMore.classList.remove('invis')
-        }
+           
+            btnLoadMore.classList.remove('invis')
       },
      
    )
@@ -53,42 +63,49 @@ simpleLightBox = new SimpleLightbox('.gallery a').refresh()
   
 function onBtnLoadMore(){
    page += 1;
-   simpleLightBox.destroy()
-   fetchEvent(query, page, perPage)
+        
+   fetchEvent(keyWord, page, perPage)
       .then(({ data }) => {
-         //let query = 
-         console.log()
-          renderEventsPhoto(data.hits)
-         //console.log(data.hits.query)
-         let totalPages = Math.ceil(data.totalHits / perPage)
-      simpleLightBox = new SimpleLightbox('.gallery a').refresh()
-      Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`)
-        
-         console.log('totalPages', totalPages)  
-        
-         if (page > totalPages) {
-       btnLoadMore.classList.add('invis')
-         Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.")
-         }   
-
+   
+         renderEventsPhoto(data.hits)
+          const { height: cardHeight } = document
+        .querySelector('.gallery')
+      .firstElementChild.getBoundingClientRect();
+ 
+ console.log(document
+  .querySelector(".gallery")
+  .firstElementChild.getBoundingClientRect())
+   window.scrollBy({
+      top: cardHeight * 2,
+        behavior: 'smooth',
+      }); 
+         simpleLightBox = new SimpleLightbox('.gallery a').refresh()
+       
+const totalPages = Math.ceil(data.totalHits / perPage)
+ if (totalPages < page) {
+            btnLoadMore.classList.add('invis')
+            Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.")
+          
+        }
       })
      
-      .catch(error => console.log(error))
-
+      .catch(error => console.log(error)) 
 }
-
-
-
-
-//     const response = await fetchImages(page, query);
-//   currentHits = response.hits.length;
-
-//   if (response.totalHits > 40) {
-//     btnLoadMore.classList.remove('is-hidden');
-//   } else {
-//     btnLoadMore.classList.add('is-hidden');
-//    }
-
+// window.addEventListener('scroll', onScrollAuto)
+// function onScrollAuto() {
+//    const documentAll = document.documentElement.getBoundingClientRect()
+//    console.log('top', documentRect.top)
+//    console.log('top', documentRect.bottom)
+//    console.log(documentAll)
+//        const { height: cardHeight } = document
+//         .querySelector('body')
+//         .firstElementChild.getBoundingClientRect();
+   
+//       window.scrollBy({
+//         top: cardHeight * 100,
+//         behavior: 'smooth',
+//       });
+// }
 
 
 

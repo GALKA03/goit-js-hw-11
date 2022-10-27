@@ -8,21 +8,20 @@ function renderEventsPhoto(events) {
             const { webformatURL, largeImageURL, tags, likes, views, comments, downloads } = event
             return `
  <div class="photocard">
-
  <a class="gallery__link" href="${largeImageURL}">
        <img src ="${webformatURL}" alt="${tags}" loading="lazy"  /></a>
        <div class="info">
            <p class="info-item">
-           <b>likes:${likes}</b>
+           <b>likes:<br>${likes}</b>
            </p>
            <p class="info-item">
-               <b>views:${views}</b>
+               <b>views:<br>${views}</b>
            </p>
 <p class="info-item">
-               <b>comments:${comments}</b>
+               <b>comments:<br>${comments}</b>
            </p>
            <p class="info-item">
-               <b>downloads:${downloads}</b>
+               <b>downloads:<br>${downloads}</b>
            </p>
        </div>
 </div>    `

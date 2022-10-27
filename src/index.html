@@ -10,23 +10,26 @@
     
     
   </head>
-  <body>
+  <body class="bacground">
 <form class="search-form" id="search-form">
-  <label for="mybutton">
-    <svg id = "1" class="icon" width="30" height="30">
+ 
+    <svg  class="icon" width="30" height="30">
   <use class="svg" href="./images/search.svg#Capa_1"></use>
 </svg>
-  </label>
+  
   <input class = "input" type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
-  <button class="button" type="submit"></button>
+  
 
+<button class="button" type="submit"></button>
   </form>
+
   <div class="gallery-container">
+
 <div class="gallery"></div>
+
+
 <button type="button" class="load-more invis">Load more</button>
-<div class="btn-top-conteiner">
-<button class="btn-top">on scroll</button>
-</div>
+
 </div>
 
 <script type="module" src="./index.js"></script>
