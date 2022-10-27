@@ -16,7 +16,11 @@ let perPage = 40;
 let page = 1;
 let keyWord = '';
 
-
+let lightbox = new SimpleLightbox('.photocard a', {
+  captions: true,
+  captionsData: 'alt',
+  captionDelay: 250,
+});
 
 async function onFormSubmit(e) {
    e.preventDefault()
@@ -42,7 +46,8 @@ async function onFormSubmit(e) {
          }
          else {
             renderEventsPhoto(data.hits)
-            new SimpleLightbox('.gallery a').refresh()
+             lightbox.refresh()
+           // new SimpleLightbox('.gallery a').refresh()
              btnLoadMore.classList.remove('invis')
             Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`)
             } 
@@ -60,7 +65,8 @@ function onBtnLoadMore() {
    fetchEvent(keyWord, page, perPage)
       .then(({ data }) => {
          renderEventsPhoto(data.hits)
-      new SimpleLightbox('.gallery a').refresh()
+          lightbox.refresh()
+      //new SimpleLightbox('.gallery a').refresh()
 const totalPages = Math.ceil(data.totalHits / perPage)
          // const { height: cardHeight } = document
          //    .querySelector('.gallery')
