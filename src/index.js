@@ -56,7 +56,7 @@ async function onFormSubmit(e) {
   
 function onBtnLoadMore() {
    page += 1;
-
+   let SimpleLightbox;
    fetchEvent(keyWord, page, perPage)
       .then(({ data }) => {
          renderEventsPhoto(data.hits)
