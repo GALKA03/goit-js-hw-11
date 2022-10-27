@@ -29,7 +29,7 @@ async function onFormSubmit(e) {
    gallery.innerHTML = '';
    const query = e.target.searchQuery.value.trim()
    keyWord = query
-   if (query === '') {
+   if (!query) {
     btnLoadMore.classList.add('invis')
      Notiflix.Notify.failure('The search string cannot be empty. Please specify your search query.')
       return 
@@ -48,8 +48,8 @@ async function onFormSubmit(e) {
             renderEventsPhoto(data.hits)
              lightbox.refresh()
            // new SimpleLightbox('.gallery a').refresh()
-             btnLoadMore.classList.remove('invis')
             Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`)
+              btnLoadMore.classList.remove('invis')
             } 
 
       }
