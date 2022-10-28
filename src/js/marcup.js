@@ -7,7 +7,7 @@ function renderEventsPhoto(events) {
         .map(event => {
             const { webformatURL, largeImageURL, tags, likes, views, comments, downloads } = event
             return `
- <div class="photocard">
+ <div class="photocard" >
  <a class="gallery__link" href="${largeImageURL}">
        <img src ="${webformatURL}" alt="${tags}" loading="lazy"  /></a>
        <div class="info">

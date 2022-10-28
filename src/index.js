@@ -1,6 +1,6 @@
 import {fetchEvent} from './js/fetch';
 import { renderEventsPhoto } from './js/marcup';
-import Notiflix from 'notiflix';
+import Notiflix, { Loading } from 'notiflix';
 import SimpleLightbox from 'simplelightbox'
 import 'simplelightbox/dist/simple-lightbox.min.css'
 //import throttle from 'lodash.throttle';
@@ -9,7 +9,7 @@ const gallery = document.querySelector('.gallery')
    const form = document.querySelector('form')
 const btnLoadMore = document.querySelector('.load-more')
    form.addEventListener('submit',onFormSubmit)
-btnLoadMore.addEventListener('click', onBtnLoadMore)
+//btnLoadMore.addEventListener('click', onBtnLoadMore)
 //window.addEventListener('scroll', onScroll)
 
 let perPage = 40;
@@ -38,7 +38,6 @@ async function onFormSubmit(e) {
    fetchEvent(query, page, perPage) 
       .then(({ data }) => {
        //const totalPages = Math.ceil(data.totalHits / perPage)
-         console.log(data)
          
          if (data.totalHits === 0) {
             console.log(data.totalHits)
@@ -59,32 +58,73 @@ async function onFormSubmit(e) {
    .catch(error => console.log(error))
 }
   
-function onBtnLoadMore() {
-   page += 1;
+// function onBtnLoadMore() {
+//    page += 1;
 
-   fetchEvent(keyWord, page, perPage)
-      .then(({ data }) => {
-         renderEventsPhoto(data.hits)
-          lightbox.refresh()
-      //new SimpleLightbox('.gallery a').refresh()
-const totalPages = Math.ceil(data.totalHits / perPage)
-         const { height: cardHeight } = document
-            .querySelector('.gallery')
-            .firstElementChild.getBoundingClientRect();
+//    fetchEvent(keyWord, page, perPage)
+//       .then(({ data }) => {
+//          renderEventsPhoto(data.hits)
+//           lightbox.refresh()
+//       //new SimpleLightbox('.gallery a').refresh()
+// const totalPages = Math.ceil(data.totalHits / perPage)
+//          const { height: cardHeight } = document
+//             .querySelector('.gallery')
+//             .firstElementChild.getBoundingClientRect();
 
-         window.scrollBy({
-            top: cardHeight * 2,
-            behavior: 'smooth',
-         })   
- if (totalPages < page) {
-            btnLoadMore.classList.add('invis')
-            Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.")
+//          window.scrollBy({
+//             top: cardHeight * 2,
+//             behavior: 'smooth',
+//          })   
+//  if (totalPages < page) {
+//             btnLoadMore.classList.add('invis')
+//             Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.")
           
-        }
-      })
-            .catch(error => console.log(error))
+//         }
+//       })
+//             .catch(error => console.log(error))
       
-   }
+// }
+   
+
+const photocard = document.querySelectorAll('.gallery')
+console.log(photocard)
+const options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+
+}
+console.log(options)
+function handlerPhoto(myPhoto, observer) {
+    myPhoto.forEach(singlPhoto => {
+       console.log(singlPhoto.intersectionRatio)
+       if (myPhoto.intersectionRatio > 0) {
+          loadPictures(myPhoto.target)
+       }
+    })
+}
+function loadPictures(image) {
+   image.src = image.getAttribute('datta')
+}
+const observer = new IntersectionObserver(handlerPhoto, options)
+photocard.forEach(photo => {
+    observer.observe(photo)
+//console.log(observer.observe(photo))
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // window.addEventListener('scroll', onScrollAuto)
 // function onScrollAuto() {
 //    const documentAll = document.documentElement.getBoundingClientRect()
