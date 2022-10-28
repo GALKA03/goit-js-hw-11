@@ -22,7 +22,7 @@ let lightbox = new SimpleLightbox('.photocard a', {
   captionDelay: 250,
 });
 
-async function renderEventsPhoto(events) {
+function renderEventsPhoto(events) {
     const markup = events
         .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {     
             return `
