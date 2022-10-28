@@ -26,6 +26,6 @@ function renderEventsPhoto(events) {
        </div>
 </div>    `
         }).join('')
-    gallery.insertAdjacentHTML('beforeend', markup);
-  console.log(markup) 
+  return  gallery.insertAdjacentHTML('beforeend', markup);
+ 
 }

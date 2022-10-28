@@ -1,5 +1,5 @@
 import {fetchEvent} from './js/fetch';
-import { renderEventsPhoto } from './js/marcup';
+//import { renderEventsPhoto } from './js/marcup';
 import Notiflix, { Loading } from 'notiflix';
 import SimpleLightbox from 'simplelightbox'
 import 'simplelightbox/dist/simple-lightbox.min.css'
@@ -21,6 +21,33 @@ let lightbox = new SimpleLightbox('.photocard a', {
   captionDelay: 250,
 });
 
+function renderEventsPhoto(events) {
+    const markup = events
+        .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) =>{  
+            return `
+ <div class="photocard" >
+ <a class="gallery__link" href="${largeImageURL}">
+       <img src ="${webformatURL}" alt="${tags}" loading="lazy"  /></a>
+       <div class="info">
+           <p class="info-item">
+           <b>likes:<br>${likes}</b>
+           </p>
+           <p class="info-item">
+               <b>views:<br>${views}</b>
+           </p>
+<p class="info-item">
+               <b>comments:<br>${comments}</b>
+           </p>
+           <p class="info-item">
+               <b>downloads:<br>${downloads}</b>
+           </p>
+       </div>
+</div>    `
+        }).join('')
+  return  gallery.insertAdjacentHTML('beforeend', markup);
+ 
+}
+
 
 async function onFormSubmit(e) {
    e.preventDefault()
@@ -40,7 +67,7 @@ async function onFormSubmit(e) {
          Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.')
       }
       else {
-         renderEventsPhoto(events)
+         renderEventsPhoto(response.hits)
          //console.log(response.hits)
          lightbox.refresh()
          // new SimpleLightbox('.gallery a').refresh()
@@ -55,9 +82,9 @@ async function onFormSubmit(e) {
 async function onBtnLoadMore() {
    page += 1;
 
- fetchEvent(keyWord, page, perPage)
+const response = await fetchEvent(keyWord, page, perPage)
       try  {
-         renderEventsPhoto(response)
+         renderEventsPhoto(response.hits)
          
           lightbox.refresh()
       //new SimpleLightbox('.gallery a').refresh()
