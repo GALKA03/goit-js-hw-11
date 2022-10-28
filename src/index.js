@@ -9,7 +9,7 @@ const gallery = document.querySelector('.gallery')
    const form = document.querySelector('form')
 const btnLoadMore = document.querySelector('.load-more')
    form.addEventListener('submit',onFormSubmit)
-btnLoadMore.addEventListener('click', onBtnLoadMore)
+//btnLoadMore.addEventListener('click', onBtnLoadMore)
 //window.addEventListener('scroll', onScroll)
 
 let perPage = 40;
@@ -22,36 +22,35 @@ let lightbox = new SimpleLightbox('.photocard a', {
   captionDelay: 250,
 });
 
-function renderEventsPhoto(events) {
-    const markup = events
-        .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {     
-            return `
- <div class="photocard" >
- <a class="gallery__link" href="${largeImageURL}">
-       <img src ="${webformatURL}" alt="${tags}" loading="lazy"  /></a>
-       <div class="info">
-           <p class="info-item">
-           <b>likes:<br>${likes}</b>
-           </p>
-           <p class="info-item">
-               <b>views:<br>${views}</b>
-           </p>
-<p class="info-item">
-               <b>comments:<br>${comments}</b>
-           </p>
-           <p class="info-item">
-               <b>downloads:<br>${downloads}</b>
-           </p>
-       </div>
-</div>    `
-        }).join('')
-    gallery.insertAdjacentHTML('beforeend', markup);
-}
+// function renderEventsPhoto(events) {
+//     const markup = events
+//         .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {     
+//             return `
+//  <div class="photocard" >
+//  <a class="gallery__link" href="${largeImageURL}">
+//        <img src ="${webformatURL}" alt="${tags}" loading="lazy"  /></a>
+//        <div class="info">
+//            <p class="info-item">
+//            <b>likes:<br>${likes}</b>
+//            </p>
+//            <p class="info-item">
+//                <b>views:<br>${views}</b>
+//            </p>
+// <p class="info-item">
+//                <b>comments:<br>${comments}</b>
+//            </p>
+//            <p class="info-item">
+//                <b>downloads:<br>${downloads}</b>
+//            </p>
+//        </div>
+// </div>    `
+//         }).join('')
+//     gallery.insertAdjacentHTML('beforeend', markup);
+// }
 
 
 async function onFormSubmit(e) {
    e.preventDefault()
-   
    page = 1;
    gallery.innerHTML = '';
    const query = e.target.searchQuery.value.trim()
@@ -62,17 +61,17 @@ async function onFormSubmit(e) {
       return
    }
    const response = await fetchEvent(query, page, perPage);
-   //currentHits = response.hits;
    try {
       if (response.totalHits === 0) {
          console.log(response.totalHits)
          Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.')
       }
       else {
-       renderEventsPhoto(response.hits)
+         renderEventsPhoto(response)
+         //console.log(response.hits)
          lightbox.refresh()
          // new SimpleLightbox('.gallery a').refresh()
-         Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`)
+         Notiflix.Notify.success(`Hooray! We found ${response.totalHits} images.`)
          btnLoadMore.classList.remove('invis')
       }
    } catch (error) {
@@ -80,31 +79,32 @@ async function onFormSubmit(e) {
 }
 }
   
-async function onBtnLoadMore() {
-   page += 1;
+// async function onBtnLoadMore() {
+//    page += 1;
 
- fetchEvent(keyWord, page, perPage)
-      try  {
-         renderEventsPhoto(response.hits)
-          lightbox.refresh()
-      //new SimpleLightbox('.gallery a').refresh()
-const totalPages = Math.ceil(response.totalHits / perPage)
-         const { height: cardHeight } = document
-            .querySelector('.gallery')
-            .firstElementChild.getBoundingClientRect();
+//  fetchEvent(keyWord, page, perPage)
+//       try  {
+//          renderEventsPhoto(response)
+         
+//           lightbox.refresh()
+//       //new SimpleLightbox('.gallery a').refresh()
+// const totalPages = Math.ceil(response.totalHits / perPage)
+//          const { height: cardHeight } = document
+//             .querySelector('.gallery')
+//             .firstElementChild.getBoundingClientRect();
 
-         window.scrollBy({
-            top: cardHeight * 2,
-            behavior: 'smooth',
-         })   
- if (totalPages <= page) {
-            btnLoadMore.classList.add('invis')
-            Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.")
+//          window.scrollBy({
+//             top: cardHeight * 2,
+//             behavior: 'smooth',
+//          })   
+//  if (totalPages <= page) {
+//             btnLoadMore.classList.add('invis')
+//             Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.")
           
-        }
-      } catch(error) {console.log(error) } 
+//         }
+//       } catch(error) {console.log(error) } 
       
-}
+// }
    
 
 

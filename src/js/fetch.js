@@ -1,8 +1,8 @@
-import axios from 'axios';
-export async function fetchEvent(events, page, perPage) {
+const axios = require('axios').default;
+export async function fetchEvent(query, page, perPage) {
   const URL = 'https://pixabay.com/api/';
   const API = "30706711-d5d2ff18b6ad5954982c3eaa0";
-  const BASE = `&q=${events}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=${perPage}`
+  const BASE = `&q=${query}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=${perPage}`
   
   return await axios.get(`${URL}?key=${API}${BASE}`).then(response => response.data);
 }
